@@ -8,15 +8,18 @@ public class Lesson_4 {
         //checkSumSign();
         //printColor();
         //compareNumbers();
-        //System.out.println(methodFive(4,55));
-        //methodSix(-1);
-        //System.out.println(methodSeven(4));
-        //methodEight("Привет", 5);
-        //System.out.println(methodeNine(400));
-        //methodEleven();
-        //methodTwelve();
-        //methodThirteen();
-        //methodFourteen(3,5);
+        //System.out.println(sumFromTenToTwenty(10,6));
+        //isThePositiveNumber(-1);
+        //System.out.println(isTheNegativeNumber(-7));
+        //printLine("Hello World",4);
+        //System.out.println(checkLeapYear(2024));
+        //inversionOfArrayValues();
+        //fillArrayFromOneToHundred();
+        //doublingValuesInArrayIfValueLessThanSix();
+        //fillTheDiagonalWithUnits();
+        //returnArrayWithLenAndInitialValue(5,3);
+
+
 
 
     }
@@ -44,7 +47,7 @@ public class Lesson_4 {
             System.out.println("Красный");
         } else if (value > 0 && value <= 100) {
             System.out.println("Жёлтый");
-        } else if (value > 100) {
+        } else {
             System.out.println("Зелёный");
         }
     }
@@ -58,17 +61,13 @@ public class Lesson_4 {
     }
 
     //5
-    static boolean methodFive(int a, int b) {
+    static boolean sumFromTenToTwenty(int a, int b) {
         int result = a + b;
-        if (result > 10 && result <= 20) {
-            return true;
-        } else {
-            return false;
-        }
+        return result > 10 && result <= 20;
     }
 
     //6
-    static void methodSix(int n) {
+    static void isThePositiveNumber(int n) {
         if (n >= 0) {
             System.out.println("Число: " + n + " положительное");
         } else {
@@ -77,33 +76,25 @@ public class Lesson_4 {
     }
 
     //7
-    static boolean methodSeven(int n) {
-        if (n >= 0) {
-            return false;
-        } else {
-            return true;
-        }
+    static boolean isTheNegativeNumber(int n) {
+        return n >= 0;
     }
 
     //8
-    static void methodEight(String str, int n) {
+    static void printLine(String str, int n) {
         for (int i = 0; i < n; i++) {
             System.out.println(str);
         }
     }
 
     //9
-    static boolean methodeNine(int year) {
-        if ((year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0)) {
-            return true;
-        } else {
-            return false;
-        }
+    static boolean checkLeapYear(int year) {
+        return year % 4 == 0 && (year % 100 != 0) || (year % 400 == 0);
     }
 
 
     //10
-    static void methodTen() {
+    static void inversionOfArrayValues() {
         int[] array = new int[]{1, 1, 0, 0, 1, 0, 1, 1, 0, 0};
         for (int i = 0; i < array.length; i++) {
             if (array[i] == 0) {
@@ -118,7 +109,7 @@ public class Lesson_4 {
     }
 
     //11
-    static void methodEleven() {
+    static void fillArrayFromOneToHundred() {
         int[] array = new int[100];
         for (int i = 0; i < 100; i++) {
             array[i] = i + 1;
@@ -129,11 +120,11 @@ public class Lesson_4 {
     }
 
     //12
-    static void methodTwelve() {
+    static void doublingValuesInArrayIfValueLessThanSix() {
         int[] array = new int[]{1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1};
         for (int i = 0; i < array.length; i++) {
             if (array[i] < 6) {
-                array[i] *= 6;
+                array[i] *= 2;
             }
         }
         for (int i : array) {
@@ -142,7 +133,7 @@ public class Lesson_4 {
     }
 
     //13
-    static void methodThirteen() {
+    static void fillTheDiagonalWithUnits() {
         int size = 7;
         int[][] matrix = new int[size][size];
         for (int i = 0; i < size; i++) {
@@ -158,7 +149,7 @@ public class Lesson_4 {
     }
 
     //14
-    static int[] methodFourteen(int len, int initialValue){
+    static int[] returnArrayWithLenAndInitialValue(int len, int initialValue){
         int[] array = new int[len];
         for(int i = 0; i < len; i++){
             array[i] = initialValue;
