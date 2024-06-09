@@ -15,6 +15,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.awt.*;
 import java.io.File;
+import java.sql.Driver;
 import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -78,12 +79,12 @@ public class MTSTest {
         summField.sendKeys("25");
         WebElement continueButton = driver.findElement(By.xpath("//form[@id='pay-connection']/button[@type='submit']"));
         continueButton.click();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        WebElement facticalResult = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pay-description__text']")));
-        facticalResult.getText();
-        String expectedResult = "Оплата: Услуги связи\n" +
-                "Номер:375297777777";
-        assertEquals(facticalResult, expectedResult);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        driver.switchTo().frame(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//iframe[@class='bepaid-iframe']"))));
+        WebElement facticalResult = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), 'Оплата:')]")));
+        String actualResult = facticalResult.getText();
+        String expectedResult = "Оплата: Услуги связи Номер:375297777777";
+        assertEquals(actualResult, expectedResult);
 
     }
 }
