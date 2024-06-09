@@ -1,17 +1,22 @@
 package org.example;
-
+import org.testng.Assert;
 import org.testng.annotations.Test;
-import static org.testng.AssertJUnit.assertEquals;
+import static org.example.Factorial.factorial;
 
 
 public class FactorialTest {
     @Test
-    public void testFactorial() {
-        assertEquals(1, Factorial.factorial(0));
-        assertEquals(1, Factorial.factorial(1));
-        assertEquals(2, Factorial.factorial(2));
-        assertEquals(6, Factorial.factorial(3));
-        assertEquals(24, Factorial.factorial(4));
-        assertEquals(120, Factorial.factorial(5));
+    public void testFactorialPositiveNumber() {
+        Assert.assertEquals(120, factorial(5));
+    }
+
+    @Test
+    public void testFactorialZero() {
+        Assert.assertEquals(1, factorial(0));
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "Число должно быть неотрицательным")
+    public void testFactorialNegativeNumber() {
+        factorial(-1);
     }
 }
