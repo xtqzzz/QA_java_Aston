@@ -6,13 +6,15 @@ package org.example;
  */
 public class Factorial {
 
-    public static int factorial(int n) {
-        if (n == 0 || n == 1) {
-            return 1;
+    public static long factorial(int number) {
+        if (number < 0) {
+            throw new IllegalArgumentException("Число должно быть неотрицательным");
         }
-        else {
-            return n * factorial(n - 1);
+        long result = 1;
+        for (int i = 1; i <= number; i++) {
+            result *= i;
         }
+        return result;
     }
 
     public static void main(String[] args) {
