@@ -63,8 +63,6 @@ public class MTSTest {
         String currentUrl = driver.getCurrentUrl();
         assertEquals("https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/", currentUrl);
         driver.get("https://www.mts.by/");
-//        WebElement a = driver.findElement(By.xpath("//button[@id='cookie-agree']"));
-//        a.click();
     }
 
     @Test
