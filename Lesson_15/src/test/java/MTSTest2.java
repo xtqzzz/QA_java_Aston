@@ -1,41 +1,38 @@
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.AfterClass;
 import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.junit.jupiter.api.*;
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.*;
+import org.openqa.selenium.support.ui.*;
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 import java.time.Duration;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class MTSTest {
-    static WebDriver driver;
-    @BeforeClass
-    public static void setUp() {
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+public class MTSTest2 {
+    private WebDriver driver;
+
+    @BeforeAll
+    public void setUp() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.get("https://www.mts.by/");
         driver.manage().window().maximize();
-        WebElement cookieButton = driver.findElement(By.xpath("//button[@id='cookie-agree']"));
+        WebElement cookieButton = driver.findElement(By.id("cookie-agree"));
         cookieButton.click();
     }
 
-
     @Test
-    public void checkBlockNameTest(){
+    public void checkBlockNameTest() {
         WebElement logoText = driver.findElement(By.xpath("//div[@class='pay__wrapper']/h2"));
         String actual = logoText.getText();
         String expected = "Онлайн пополнение\nбез комиссии";
-        assertEquals("Текст блока не соответствует ожидаемому",expected, actual);
+        assertEquals(expected, actual, "Текст блока не соответствует ожидаемому.");
     }
 
-    @Test
+    @org.junit.Test
     public void findLogoPaySysTest() {
         WebElement visaLogo = driver.findElement(By.xpath("//*[@alt='Visa']"));
         Assert.assertTrue(visaLogo.isDisplayed());
@@ -48,7 +45,7 @@ public class MTSTest {
         WebElement belcardLogo = driver.findElement(By.xpath("//div[@class='pay__partners']/ul/li/img[@alt='Белкарт']"));
         Assert.assertTrue(belcardLogo.isDisplayed());
     }
-    @Test
+    @org.junit.Test
     public void checkLink() {
         WebElement detailsLink = driver.findElement(By.xpath("//a[text()='Подробнее о сервисе']"));
         detailsLink.click();
@@ -57,7 +54,7 @@ public class MTSTest {
         driver.get("https://www.mts.by/");
     }
 
-    @Test
+    @org.junit.Test
     public void checkInputFormTest() {
         WebElement serviceDropdown = driver.findElement(By.xpath("//button[@class='select__header']"));
         serviceDropdown.click();
@@ -76,8 +73,11 @@ public class MTSTest {
         String expectedResult = "Оплата: Услуги связи Номер:375297777777";
         assertEquals(actualResult, expectedResult);
     }
-    @AfterClass
-    static public void tearDown(){
-        driver.quit();
+
+    @AfterAll
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
     }
 }
