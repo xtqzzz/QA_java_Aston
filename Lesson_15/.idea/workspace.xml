@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3c47ebf3-e219-4f97-840f-39be3a2c13d2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/MTSTest2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/MTSTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/MTSTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/MTSTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/chromedriver.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,15 +30,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;lesson__15&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/QA_java_Aston/Lesson_15&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "lesson__15",
+    "last_opened_file_path": "D:/QA_java_Aston/Lesson_15"
   }
-}</component>
-  <component name="RunManager" selected="JUnit.MTSTest2">
+}]]></component>
+  <component name="RunManager" selected="JUnit.MTSTest">
     <configuration name="MTSTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="example.org" />
       <option name="PACKAGE_NAME" value="" />
@@ -74,8 +70,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.MTSTest2" />
         <item itemvalue="JUnit.MTSTest" />
+        <item itemvalue="JUnit.MTSTest2" />
       </list>
     </recent_temporary>
   </component>
