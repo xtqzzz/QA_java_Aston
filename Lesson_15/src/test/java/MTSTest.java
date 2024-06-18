@@ -1,6 +1,5 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.AfterClass;
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -12,46 +11,64 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class MTSTest {
-    static WebDriver driver;
+    private static WebDriver driver;
+
     @BeforeClass
     public static void setUp() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
-        driver.get("https://www.mts.by/");
         driver.manage().window().maximize();
-        WebElement cookieButton = driver.findElement(By.xpath("//button[@id='cookie-agree']"));
+        driver.get("https://www.mts.by/");
+        acceptCookies();
+    }
+
+    private static void acceptCookies() {
+        WebElement cookieButton = driver.findElement(By.id("cookie-agree"));
         cookieButton.click();
     }
 
+    private WebElement waitForElementVisible(By locator, long timeoutSeconds) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
+    private void assertText(By locator, String expectedText) {
+        WebElement element = waitForElementVisible(locator, 5);
+        String actualText = element.getText();
+        assertEquals(expectedText, actualText);
+    }
+
+    private void assertElementDisplayed(By locator) {
+        WebElement element = waitForElementVisible(locator, 5);
+        assertTrue(element.isDisplayed());
+    }
+
+    private void clickElement(By locator) {
+        WebElement element = waitForElementVisible(locator, 5);
+        element.click();
+    }
 
     @Test
-    public void checkBlockNameTest(){
-        WebElement logoText = driver.findElement(By.xpath("//div[@class='pay__wrapper']/h2"));
-        String actual = logoText.getText();
-        String expected = "Онлайн пополнение\nбез комиссии";
-        assertEquals("Текст блока не соответствует ожидаемому",expected, actual);
+    public void checkBlockNameTest() {
+        assertText(By.xpath("//div[@class='pay__wrapper']/h2"), "Онлайн пополнение\nбез комиссии");
     }
 
     @Test
     public void findLogoPaySysTest() {
-        WebElement visaLogo = driver.findElement(By.xpath("//*[@alt='Visa']"));
-        Assert.assertTrue(visaLogo.isDisplayed());
-        WebElement verifiedByVisaLogo = driver.findElement(By.xpath("//*[@alt='Verified By Visa']"));
-        Assert.assertTrue(verifiedByVisaLogo.isDisplayed());
-        WebElement masterCardLogo = driver.findElement(By.cssSelector("img[alt='MasterCard']"));
-        Assert.assertTrue(masterCardLogo.isDisplayed());
-        WebElement masterCardSecureCodeLogo = driver.findElement(By.xpath("//*[@alt='MasterCard Secure Code']"));
-        Assert.assertTrue(masterCardSecureCodeLogo.isDisplayed());
-        WebElement belcardLogo = driver.findElement(By.xpath("//div[@class='pay__partners']/ul/li/img[@alt='Белкарт']"));
-        Assert.assertTrue(belcardLogo.isDisplayed());
+        assertElementDisplayed(By.xpath("//*[@alt='Visa']"));
+        assertElementDisplayed(By.xpath("//*[@alt='Verified By Visa']"));
+        assertElementDisplayed(By.cssSelector("img[alt='MasterCard']"));
+        assertElementDisplayed(By.xpath("//*[@alt='MasterCard Secure Code']"));
+        assertElementDisplayed(By.xpath("//div[@class='pay__partners']/ul/li/img[@alt='Белкарт']"));
     }
+
     @Test
     public void checkLink() {
-        WebElement detailsLink = driver.findElement(By.xpath("//a[text()='Подробнее о сервисе']"));
-        detailsLink.click();
+        clickElement(By.xpath("//a[text()='Подробнее о сервисе']"));
         String currentUrl = driver.getCurrentUrl();
         assertEquals("https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/", currentUrl);
         driver.get("https://www.mts.by/");
@@ -59,25 +76,27 @@ public class MTSTest {
 
     @Test
     public void checkInputFormTest() {
-        WebElement serviceDropdown = driver.findElement(By.xpath("//button[@class='select__header']"));
-        serviceDropdown.click();
-        WebElement communicationServices = driver.findElement(By.xpath("//p[text()='Услуги связи']"));
-        communicationServices.click();
-        WebElement phoneNumberField = driver.findElement(By.xpath("//input[@class='phone']"));
+        clickElement(By.xpath("//button[@class='select__header']"));
+        clickElement(By.xpath("//p[text()='Услуги связи']"));
+
+        WebElement phoneNumberField = waitForElementVisible(By.xpath("//input[@class='phone']"), 5);
         phoneNumberField.sendKeys("297777777");
-        WebElement summField = driver.findElement(By.xpath("//input[@id='connection-sum']"));
+
+        WebElement summField = waitForElementVisible(By.xpath("//input[@id='connection-sum']"), 5);
         summField.sendKeys("25");
-        WebElement continueButton = driver.findElement(By.xpath("//form[@id='pay-connection']/button[@type='submit']"));
-        continueButton.click();
+
+        clickElement(By.xpath("//form[@id='pay-connection']/button[@type='submit']"));
+
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         driver.switchTo().frame(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//iframe[@class='bepaid-iframe']"))));
-        WebElement facticalResult = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), 'Оплата:')]")));
-        String actualResult = facticalResult.getText();
-        String expectedResult = "Оплата: Услуги связи Номер:375297777777";
-        assertEquals(actualResult, expectedResult);
+
+        assertText(By.xpath("//*[contains(text(), 'Оплата:')]"), "Оплата: Услуги связи Номер:375297777777");
     }
+
     @AfterClass
-    static public void tearDown(){
-        driver.quit();
+    public static void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
     }
 }
